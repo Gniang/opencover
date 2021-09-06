@@ -134,6 +134,12 @@ namespace OpenCover.Framework.Model
         public bool IsSetter { get; set; }
 
         /// <summary>
+        /// Is this method a property setter
+        /// </summary>
+        [XmlAttribute("hash")]
+        public string Hash { get; set; }
+
+        /// <summary>
         /// Mark an entity as skipped
         /// </summary>
         /// <param name="reason">Provide a reason</param>

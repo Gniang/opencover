@@ -116,6 +116,8 @@ namespace OpenCover.Framework
             DiagMode = false;
             SendVisitPointsTimerInterval = 0;
             IgnoreCtrlC = false;
+            MergeDifferentAssembly = false;
+            MergeResultFiles = new string[0];
         }
 
         /// <summary>
@@ -158,6 +160,7 @@ namespace OpenCover.Framework
             builder.AppendLine("    [-diagmode]");
             builder.AppendLine("    [-ignorectrlc]");
             builder.AppendLine("    [-sendvisitpointstimerinterval: 0 (no timer) | 1-maxint (timer interval in msec)");
+            builder.AppendLine("    [[\"]-mergediffasm:<merge results.xml>[;<merge results.xml>][;<merge results.xml>][\"]]");
             builder.AppendLine("    -version");
             builder.AppendLine("or");
             builder.AppendLine("    -?");
@@ -319,6 +322,10 @@ namespace OpenCover.Framework
                     case "sendvisitpointstimerinterval":
                         SendVisitPointsTimerInterval = ExtractValue<uint>("sendvisitpointstimerinterval", () =>
                         { throw new InvalidOperationException("The send visit points timer interval must be a non-negative integer"); });
+                        break;
+                    case "mergediffasm":
+                        MergeDifferentAssembly = true;
+                        MergeResultFiles = GetArgumentValue("mergediffasm").Split(';');
                         break;
                     default:
                         throw new InvalidOperationException(string.Format("The argument '-{0}' is not recognised", key));
@@ -630,6 +637,16 @@ namespace OpenCover.Framework
         public uint SendVisitPointsTimerInterval { get; private set; }
 
         public bool IgnoreCtrlC { get; private set; }
+
+        /// <summary>
+        /// Enable accurately merge different versions of assemblies. 
+        /// </summary>
+        public bool MergeDifferentAssembly { get; private set; }
+
+        /// <summary>
+        /// result file path for merge different version of assemblies 
+        /// </summary>
+        public string[] MergeResultFiles { get; private set; }
     }
 
 }

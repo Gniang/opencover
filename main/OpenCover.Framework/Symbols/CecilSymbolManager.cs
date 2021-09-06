@@ -358,7 +358,8 @@ namespace OpenCover.Framework.Symbols
                 IsStatic = methodDefinition.IsStatic,
                 IsGetter = methodDefinition.IsGetter,
                 IsSetter = methodDefinition.IsSetter,
-                MetadataToken = methodDefinition.MetadataToken.ToInt32()
+                MetadataToken = methodDefinition.MetadataToken.ToInt32(),
+                Hash = ToGuid(methodDefinition),
             };
 
             if (methodDefinition.SafeGetMethodBody() == null)
@@ -380,6 +381,17 @@ namespace OpenCover.Framework.Symbols
             method.FileRef = files.Where(x => x.FullPath == GetFirstFile(definition))
                 .Select(x => new FileRef {UniqueId = x.UniqueId}).FirstOrDefault();
             return method;
+        }
+
+        private static string ToGuid(MethodDefinition method)
+        {
+            var instructions = method.Body.Instructions;
+            var body = string.Join("\n",instructions.Select(x=> x.ToString()));
+            var bodyBytes = System.Text.Encoding.Unicode.GetBytes(body);
+            using (var prov = new System.Security.Cryptography.SHA1CryptoServiceProvider())
+            {
+                return BitConverter.ToString(prov.ComputeHash(bodyBytes));
+            };
         }
 
         public SequencePoint[] GetSequencePointsForToken(int token)

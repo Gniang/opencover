@@ -80,5 +80,15 @@ namespace OpenCover.Framework
         /// The number of msec between sends of the visit points to the host regardless of the number that has accumulated
         /// </summary>
         uint SendVisitPointsTimerInterval { get; }
+
+        /// <summary>
+        /// Accurately merge different versions of assemblies
+        /// </summary>
+        bool MergeDifferentAssembly { get; }
+
+        /// <summary>
+        /// coverage file pathes for merge
+        /// </summary>
+        string[] MergeResultFiles { get; }
     }
 }

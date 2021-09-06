@@ -157,12 +157,129 @@ namespace OpenCover.Framework.Persistance
             if (CoverageSession.Modules == null) 
                 return;
             MarkSkippedMethods();
+            if(CommandLine.MergeDifferentAssembly)
+            {
+                MeregeDifferentAssembly(CommandLine.MergeResultFiles);
+            }
             TransformSequences();
             CalculateCoverage();
             if (CommandLine.HideSkipped == null || !CommandLine.HideSkipped.Any()) 
                 return;
             foreach (var skippedMethod in CommandLine.HideSkipped.OrderBy(x => x))
                 ProcessSkippedAction(skippedMethod);
+        }
+
+        private void MeregeDifferentAssembly(string[] otherResultFiles)
+        {
+            var otherSessions = otherResultFiles
+                .Select(ReadCoverageSession)
+                .Where(x => x != null)
+                .ToList();
+
+            AddSameModules(otherSessions);
+        }
+
+
+        private void AddSameModules(List<CoverageSession> otherSessions)
+        {
+            foreach (var module in CoverageSession.Modules)
+            {
+                if (module.ShouldSerializeSkippedDueTo())
+                {
+                    continue;
+                }
+
+                var otherModules = otherSessions
+                    .SelectMany(x => x.Modules)
+                    .Where(x => x.ModuleName == module.ModuleName)
+                    .ToArray();
+                foreach (var @class in module.Classes)
+                {
+                    if (@class.ShouldSerializeSkippedDueTo())
+                    {
+                        continue;
+                    }
+
+                    var otherClasses = otherModules
+                        .SelectMany(x => x.Classes)
+                        .Where(x => x.FullName == @class.FullName)
+                        .ToArray();
+
+                    foreach (var method in @class.Methods)
+                    {
+                        if (method.ShouldSerializeSkippedDueTo())
+                        {
+                            continue;
+                        }
+
+                        var otherMethods = otherClasses
+                            .SelectMany(x => x.Methods)
+                            .Where(x => x.FullName == method.FullName
+                                    && x.SequencePoints.Length == method.SequencePoints.Length
+                                    && x.Hash == method.Hash)
+                            .ToArray();
+                        foreach (var m in otherMethods)
+                        {
+
+                            // inherit sequence visit
+                            var spPairs = method
+                                .SequencePoints
+                                .Zip(m.SequencePoints, (curSp, otherSp) => (curSp, otherSp));
+                            foreach (var (curSp, otherSp) in spPairs)
+                            {
+                                if (otherSp.VisitCount <= 0)
+                                {
+                                    continue;
+                                }
+
+                                InstrumentationPoint.AddVisitCount(
+                                    curSp.UniqueSequencePoint, 
+                                    0, 
+                                    otherSp.VisitCount);
+                            }
+
+                            // inherit branch visit
+                            var branchPairs = method
+                                .BranchPoints
+                                .Zip(m.BranchPoints, (curBr, otherBr) => (curBr, otherBr));
+                            foreach (var (curBr, otherBr) in branchPairs)
+                            {
+                                if (otherBr.VisitCount <= 0)
+                                {
+                                    continue;
+                                }
+
+                                InstrumentationPoint.AddVisitCount(
+                                    curBr.UniqueSequencePoint,
+                                    0,
+                                    otherBr.VisitCount);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private CoverageSession ReadCoverageSession(string resultFilePath)
+        {
+            try
+            {
+                _logger.Info(string.Format("Loading coverage file {0}", resultFilePath));
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(CoverageSession),
+                                                    new[] { typeof(Module), typeof(Model.File), typeof(Class) });
+                using (var fs = new System.IO.FileStream(resultFilePath, System.IO.FileMode.Open))
+                {
+                    using (var reader = new System.IO.StreamReader(fs, System.Text.Encoding.UTF8))
+                    {
+                        return (CoverageSession)serializer.Deserialize(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Info(string.Format("Failed to load coverage file {0}", resultFilePath), ex);
+                return null;
+            }
         }
 
         private void ProcessSkippedAction(SkippedMethod skippedMethod)

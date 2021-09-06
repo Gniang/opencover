@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>OpenCover</id>
+    <id>OpenCoverMerge</id>
     <version>1.0.0.0</version>
     <title>OpenCover - an open source code coverage tool for .NET</title>
     <authors>shaun wilde, OpenCover</authors>
     <owners>shaun wilde</owners>
     <license type="expression">MIT</license>
-    <iconUrl>https://github.com/opencover/opencover/raw/master/main/Icons/128.png</iconUrl>
-    <projectUrl>https://github.com/opencover/opencover</projectUrl>
+    <iconUrl>https://github.com/Gniang/opencover/raw/master/main/Icons/128.png</iconUrl>
+    <projectUrl>https://github.com/Gniang/opencover</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An open source code coverage tool (branch and sequence point) for all .NET Frameworks 2 and above (including Silverlight). Also capable of handling 32 and 64 bit processes. Use ReportGenerator for best viewing results (also available via Nuget).</description>
     <summary>An open source code coverage tool (branch and sequence point) for all .NET Frameworks 2 and above. Also capable of handling 32 and 64 bit processes.</summary>
-    <language>en-US</language>
+    <language>ja-JP</language>
     <tags>Code-Coverage Reporting Testing TDD Utility</tags>
   </metadata>
   <files>
