@@ -32,7 +32,7 @@
   
   <property name="buildnumber.major" value="4" />
   <property name="buildnumber.minor" value="7" />
-  <property name="buildnumber.build" value="${ci.buildNumber}" />
+  <property name="buildnumber.build" value="1" />
   <property name="buildnumber.revision" value="0" />
   <property name="buildnumber.version" value="${buildnumber.major}.${buildnumber.minor}.${buildnumber.build}.${buildnumber.revision}" />
     

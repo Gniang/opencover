@@ -385,6 +385,10 @@ namespace OpenCover.Framework.Symbols
 
         private static string ToGuid(MethodDefinition method)
         {
+            if (!method.HasBody)
+            {
+                return "";
+            }
             var instructions = method.Body.Instructions;
             var body = string.Join("\n",instructions.Select(x=> x.ToString()));
             var bodyBytes = System.Text.Encoding.Unicode.GetBytes(body);
