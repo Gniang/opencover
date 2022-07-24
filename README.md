@@ -63,16 +63,21 @@ Please refer to the wiki - [Silverlight support](https://github.com/OpenCover/op
 ### Building
 You will need:
 
-To build from the command line:
-1. Visual Studio VS2019 (Community Edition) with C#, C++, .Net Core
-2. .NET SDK 2.2.402 (https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.1.4-windows-x64-installer)
-- runtimes ???
-3. WiX 3.11 or later (http://wixtoolset.org/releases/) and Votive 2019 (https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2019Extension)
-4. Windows SDK 10 (10.0.18362.0) and .NET Framework Tools (https://msdn.microsoft.com/en-us/windows/desktop/bg162891.aspx)
+To build from the command line and visual studio:
+1. Visual Studio 2022 (Community, Professional Edition) 
+  * pack
+    * C# (.NET Desktop Development)
+      * .NET 6.0 SDK 
+    * C++ (C++ Desctop Development) 
+  * Components
+    *  .NET Core 3.1 SDK 
+    *  Windows SDK 10 (10.0.20348.0) 
+    *  Windows Universal CRT
+    *  C++ MFC for latest v143 build tools (x86 & x64)
+2. WiX 3.11 or later (http://wixtoolset.org/releases/) and Votive 2022 (https://marketplace.visualstudio.com/items?itemName=WixToolset.WixToolsetVisualStudio2022Extension)
 
-To build and run from within visual studio:
-5. SpecFlow for Visual Studio 2017 (https://marketplace.visualstudio.com/items?itemName=TechTalkSpecFlowTeam.SpecFlowForVisualStudio)
-6. Microsoft .NET Framework 4.7.2 Developer Pack (https://dotnet.microsoft.com/download/visual-studio-sdks)
+Not supported yet Visual Studio 2022
+3. SpecFlow for Visual Studio 2019 (https://marketplace.visualstudio.com/items?itemName=TechTalkSpecFlowTeam.SpecFlowForVisualStudio)
 
 All other software should be included with this repository.
 

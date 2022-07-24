@@ -134,7 +134,7 @@ namespace OpenCover.Framework.Model
         public bool IsSetter { get; set; }
 
         /// <summary>
-        /// Is this method a property setter
+        /// Hash of IL code
         /// </summary>
         [XmlAttribute("hash")]
         public string Hash { get; set; }

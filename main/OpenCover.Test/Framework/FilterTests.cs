@@ -767,7 +767,7 @@ namespace OpenCover.Test.Framework
         {
             // arrange
             var assemblyPath = Path.GetDirectoryName(GetType().Assembly.Location);
-            var location = Path.Combine(assemblyPath, "netcoreapp3.1", "OpenCover.Test.Samples.Fs.3.1.dll");
+            var location = Path.Combine(assemblyPath, "net6.0", "OpenCover.Test.Samples.Fs.6.0.dll");
             var sourceAssembly = AssemblyDefinition.ReadAssembly(location);
             var type = sourceAssembly.MainModule.Types.First(x => x.FullName.EndsWith("ClassWithAutoProperty"));
 

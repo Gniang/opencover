@@ -12,7 +12,7 @@ using System;
 namespace OpenCover.Test.Framework.Symbols
 {
     [TestFixture]
-    public class CecilSymbolManagerTestsExt31
+    public class CecilSymbolManagerTestsExt60
     {
         private CecilSymbolManager _reader;
         private string _location;
@@ -32,10 +32,10 @@ namespace OpenCover.Test.Framework.Symbols
             _mockSymbolFileHelper = new Mock<ISymbolFileHelper>();
 
             var assemblyPath = Path.GetDirectoryName(GetType().Assembly.Location);
-            _location = Path.Combine(assemblyPath, "netcoreapp3.1", "OpenCover.Test.Samples.3.1.dll");
+            _location = Path.Combine(assemblyPath, "net6.0", "OpenCover.Test.Samples.6.0.dll");
 
             _reader = new CecilSymbolManager(_mockCommandLine.Object, _mockFilter.Object, _mockLogger.Object, null, _mockSymbolFileHelper.Object);
-            _reader.Initialise(_location, "OpenCover.Test.Samples.3.1");
+            _reader.Initialise(_location, "OpenCover.Test.Samples.6.0");
         }
 
         [Test]

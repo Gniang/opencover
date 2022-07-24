@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>OpenCover.Test.Samples.Fs._3._1</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>OpenCover.Test.Samples._6._0</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,9 +17,5 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Compile Include="Library.fs" />
-  </ItemGroup>
 
 </Project>

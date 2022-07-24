@@ -6,9 +6,8 @@
   <property name="solution.folder" value="${root.folder}/main" />
   <property name="tools.folder" value="${root.folder}/tools" />
   <property name="schema.folder" value="${solution.folder}/schema" />
-  <property name="program.files.x86" value="${environment::get-variable('ProgramFiles(x86)')}" if="${environment::variable-exists('ProgramFiles(x86)')}"/>
-  <property name="program.files.x86" value="${environment::get-variable('ProgramFiles')}" unless="${property::exists('program.files.x86')}" />
-  <property name="program.files" value="${environment::get-variable('ProgramFiles')}" />
+  <property name="program.files.x86" value="${environment::get-variable('ProgramFiles(x86)')}"/>
+  <property name="program.files" value="${environment::get-variable('ProgramW6432')}" />
   <property name="netfx.tools.folder" value="${program.files.x86}/Microsoft SDKs\Windows\v10.0A\Bin\NETFX 4.7.2 Tools" />
   <property name="netfx.folder" value="${environment::get-variable('SystemRoot')}/Microsoft.NET" />
   <property name="netfx.framework.folder" value="${netfx.folder}/Framework" if="${directory::exists(netfx.folder + '/Framework')}" />
@@ -32,7 +31,7 @@
   
   <property name="buildnumber.major" value="4" />
   <property name="buildnumber.minor" value="7" />
-  <property name="buildnumber.build" value="1" />
+  <property name="buildnumber.build" value="2" />
   <property name="buildnumber.revision" value="0" />
   <property name="buildnumber.version" value="${buildnumber.major}.${buildnumber.minor}.${buildnumber.build}.${buildnumber.revision}" />
     
